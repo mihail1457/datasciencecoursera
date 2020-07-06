@@ -38,9 +38,10 @@ extractedFrame <- select(addFrames, contains("subject"), contains("activity"), c
 # Descriptive Activities
 desc_act<- read.table('./UCI HAR Dataset/activity_labels.txt', header = FALSE)
 desc_act <- as.character(desc_act[,"V2"])
+extractedFrame$activity <- desc_act
 
 # Appropriate labels for the column names
-copy_names <- colnames(extractedFrame)
+copy_names <- desc_act
 copy_names <- gsub("[(][)]", "", copy_names)
 copy_names <- gsub("-mean", "_Mean_", copy_names)
 copy_names <- gsub("-std", "_Standard_Deviation_", copy_names)
