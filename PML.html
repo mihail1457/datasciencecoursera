@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Background</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h2>Background</h2>
+
+<p>Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. More information is available from the website here: <a href="http://groupware.les.inf.puc-rio.br/har">http://groupware.les.inf.puc-rio.br/har</a> (see the section on the Weight Lifting Exercise Dataset).</p>
+
+<h2>Data</h2>
+
+<p>Data
+The training data for this project are available here:</p>
+
+<p><a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"><a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv</a></a></p>
+
+<p>The test data are available here:</p>
+
+<p><a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"><a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv</a></a></p>
+
+<p>The data for this project come from this source: <a href="http://groupware.les.inf.puc-rio.br/har">http://groupware.les.inf.puc-rio.br/har</a>. If you use the document you create for this class for any purpose please cite them as they have been very generous in allowing their data to be used for this kind of assignment.</p>
+
+<h2>Data Importing and Cleaning</h2>
+
+<pre><code class="r">library(caret)
+</code></pre>
+
+<pre><code>## Warning: package &#39;caret&#39; was built under R version 3.6.1
+</code></pre>
+
+<pre><code>## Loading required package: lattice
+</code></pre>
+
+<pre><code>## Loading required package: ggplot2
+</code></pre>
+
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.6.1
+</code></pre>
+
+<pre><code>## Error: package or namespace load failed for &#39;ggplot2&#39; in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+##  there is no package called &#39;scales&#39;
+</code></pre>
+
+<pre><code>## Error: package &#39;ggplot2&#39; could not be loaded
+</code></pre>
+
+<pre><code class="r">library(e1071)
+library(ggplot2)
+</code></pre>
+
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.6.1
+</code></pre>
+
+<pre><code>## Error: package or namespace load failed for &#39;ggplot2&#39; in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
+##  there is no package called &#39;scales&#39;
+</code></pre>
+
+<pre><code class="r">library(dplyr)
+</code></pre>
+
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.6.1
+</code></pre>
+
+<pre><code>## Error: package or namespace load failed for &#39;dplyr&#39; in loadNamespace(j &lt;- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]):
+##  there is no package called &#39;glue&#39;
+</code></pre>
+
+<pre><code class="r">library(randomForest)
+</code></pre>
+
+<pre><code>## Warning: package &#39;randomForest&#39; was built under R version 3.6.1
+</code></pre>
+
+<pre><code>## randomForest 4.6-14
+</code></pre>
+
+<pre><code>## Type rfNews() to see new features/changes/bug fixes.
+</code></pre>
+
+<pre><code class="r">library(tictoc)
+
+set.seed(60)
+# Download and unzip the data
+fileurl1 = &#39;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv&#39;
+fileurl2 = &#39;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv&#39;
+
+if (!file.exists(&#39;./PML/trainSample&#39;)){
+  download.file(fileurl1,&#39;./PML/trainSample.csv&#39;)
+  dateDownloaded1 &lt;- date()
+}
+
+if (!file.exists(&#39;./PML/testSample&#39;)){
+  download.file(fileurl2,&#39;./PML/testSample.csv&#39;)
+  dateDownloaded2 &lt;- date()
+}
+
+
+
+trainSample &lt;- read.csv(&#39;./PML/trainSample.csv&#39;, na.strings=c(&quot;NA&quot;, &quot;#DIV/0!&quot;, &quot;&quot;))
+testSample &lt;- read.csv(&#39;./PML/testSample.csv&#39;, na.strings=c(&quot;NA&quot;, &quot;#DIV/0!&quot;, &quot;&quot;))
+
+# Checking the dimensions of the data
+colnames(trainSample)
+</code></pre>
+
+<pre><code>##   [1] &quot;X&quot;                        &quot;user_name&quot;               
+##   [3] &quot;raw_timestamp_part_1&quot;     &quot;raw_timestamp_part_2&quot;    
+##   [5] &quot;cvtd_timestamp&quot;           &quot;new_window&quot;              
+##   [7] &quot;num_window&quot;               &quot;roll_belt&quot;               
+##   [9] &quot;pitch_belt&quot;               &quot;yaw_belt&quot;                
+##  [11] &quot;total_accel_belt&quot;         &quot;kurtosis_roll_belt&quot;      
+##  [13] &quot;kurtosis_picth_belt&quot;      &quot;kurtosis_yaw_belt&quot;       
+##  [15] &quot;skewness_roll_belt&quot;       &quot;skewness_roll_belt.1&quot;    
+##  [17] &quot;skewness_yaw_belt&quot;        &quot;max_roll_belt&quot;           
+##  [19] &quot;max_picth_belt&quot;           &quot;max_yaw_belt&quot;            
+##  [21] &quot;min_roll_belt&quot;            &quot;min_pitch_belt&quot;          
+##  [23] &quot;min_yaw_belt&quot;             &quot;amplitude_roll_belt&quot;     
+##  [25] &quot;amplitude_pitch_belt&quot;     &quot;amplitude_yaw_belt&quot;      
+##  [27] &quot;var_total_accel_belt&quot;     &quot;avg_roll_belt&quot;           
+##  [29] &quot;stddev_roll_belt&quot;         &quot;var_roll_belt&quot;           
+##  [31] &quot;avg_pitch_belt&quot;           &quot;stddev_pitch_belt&quot;       
+##  [33] &quot;var_pitch_belt&quot;           &quot;avg_yaw_belt&quot;            
+##  [35] &quot;stddev_yaw_belt&quot;          &quot;var_yaw_belt&quot;            
+##  [37] &quot;gyros_belt_x&quot;             &quot;gyros_belt_y&quot;            
+##  [39] &quot;gyros_belt_z&quot;             &quot;accel_belt_x&quot;            
+##  [41] &quot;accel_belt_y&quot;             &quot;accel_belt_z&quot;            
+##  [43] &quot;magnet_belt_x&quot;            &quot;magnet_belt_y&quot;           
+##  [45] &quot;magnet_belt_z&quot;            &quot;roll_arm&quot;                
+##  [47] &quot;pitch_arm&quot;                &quot;yaw_arm&quot;                 
+##  [49] &quot;total_accel_arm&quot;          &quot;var_accel_arm&quot;           
+##  [51] &quot;avg_roll_arm&quot;             &quot;stddev_roll_arm&quot;         
+##  [53] &quot;var_roll_arm&quot;             &quot;avg_pitch_arm&quot;           
+##  [55] &quot;stddev_pitch_arm&quot;         &quot;var_pitch_arm&quot;           
+##  [57] &quot;avg_yaw_arm&quot;              &quot;stddev_yaw_arm&quot;          
+##  [59] &quot;var_yaw_arm&quot;              &quot;gyros_arm_x&quot;             
+##  [61] &quot;gyros_arm_y&quot;              &quot;gyros_arm_z&quot;             
+##  [63] &quot;accel_arm_x&quot;              &quot;accel_arm_y&quot;             
+##  [65] &quot;accel_arm_z&quot;              &quot;magnet_arm_x&quot;            
+##  [67] &quot;magnet_arm_y&quot;             &quot;magnet_arm_z&quot;            
+##  [69] &quot;kurtosis_roll_arm&quot;        &quot;kurtosis_picth_arm&quot;      
+##  [71] &quot;kurtosis_yaw_arm&quot;         &quot;skewness_roll_arm&quot;       
+##  [73] &quot;skewness_pitch_arm&quot;       &quot;skewness_yaw_arm&quot;        
+##  [75] &quot;max_roll_arm&quot;             &quot;max_picth_arm&quot;           
+##  [77] &quot;max_yaw_arm&quot;              &quot;min_roll_arm&quot;            
+##  [79] &quot;min_pitch_arm&quot;            &quot;min_yaw_arm&quot;             
+##  [81] &quot;amplitude_roll_arm&quot;       &quot;amplitude_pitch_arm&quot;     
+##  [83] &quot;amplitude_yaw_arm&quot;        &quot;roll_dumbbell&quot;           
+##  [85] &quot;pitch_dumbbell&quot;           &quot;yaw_dumbbell&quot;            
+##  [87] &quot;kurtosis_roll_dumbbell&quot;   &quot;kurtosis_picth_dumbbell&quot; 
+##  [89] &quot;kurtosis_yaw_dumbbell&quot;    &quot;skewness_roll_dumbbell&quot;  
+##  [91] &quot;skewness_pitch_dumbbell&quot;  &quot;skewness_yaw_dumbbell&quot;   
+##  [93] &quot;max_roll_dumbbell&quot;        &quot;max_picth_dumbbell&quot;      
+##  [95] &quot;max_yaw_dumbbell&quot;         &quot;min_roll_dumbbell&quot;       
+##  [97] &quot;min_pitch_dumbbell&quot;       &quot;min_yaw_dumbbell&quot;        
+##  [99] &quot;amplitude_roll_dumbbell&quot;  &quot;amplitude_pitch_dumbbell&quot;
+## [101] &quot;amplitude_yaw_dumbbell&quot;   &quot;total_accel_dumbbell&quot;    
+## [103] &quot;var_accel_dumbbell&quot;       &quot;avg_roll_dumbbell&quot;       
+## [105] &quot;stddev_roll_dumbbell&quot;     &quot;var_roll_dumbbell&quot;       
+## [107] &quot;avg_pitch_dumbbell&quot;       &quot;stddev_pitch_dumbbell&quot;   
+## [109] &quot;var_pitch_dumbbell&quot;       &quot;avg_yaw_dumbbell&quot;        
+## [111] &quot;stddev_yaw_dumbbell&quot;      &quot;var_yaw_dumbbell&quot;        
+## [113] &quot;gyros_dumbbell_x&quot;         &quot;gyros_dumbbell_y&quot;        
+## [115] &quot;gyros_dumbbell_z&quot;         &quot;accel_dumbbell_x&quot;        
+## [117] &quot;accel_dumbbell_y&quot;         &quot;accel_dumbbell_z&quot;        
+## [119] &quot;magnet_dumbbell_x&quot;        &quot;magnet_dumbbell_y&quot;       
+## [121] &quot;magnet_dumbbell_z&quot;        &quot;roll_forearm&quot;            
+## [123] &quot;pitch_forearm&quot;            &quot;yaw_forearm&quot;             
+## [125] &quot;kurtosis_roll_forearm&quot;    &quot;kurtosis_picth_forearm&quot;  
+## [127] &quot;kurtosis_yaw_forearm&quot;     &quot;skewness_roll_forearm&quot;   
+## [129] &quot;skewness_pitch_forearm&quot;   &quot;skewness_yaw_forearm&quot;    
+## [131] &quot;max_roll_forearm&quot;         &quot;max_picth_forearm&quot;       
+## [133] &quot;max_yaw_forearm&quot;          &quot;min_roll_forearm&quot;        
+## [135] &quot;min_pitch_forearm&quot;        &quot;min_yaw_forearm&quot;         
+## [137] &quot;amplitude_roll_forearm&quot;   &quot;amplitude_pitch_forearm&quot; 
+## [139] &quot;amplitude_yaw_forearm&quot;    &quot;total_accel_forearm&quot;     
+## [141] &quot;var_accel_forearm&quot;        &quot;avg_roll_forearm&quot;        
+## [143] &quot;stddev_roll_forearm&quot;      &quot;var_roll_forearm&quot;        
+## [145] &quot;avg_pitch_forearm&quot;        &quot;stddev_pitch_forearm&quot;    
+## [147] &quot;var_pitch_forearm&quot;        &quot;avg_yaw_forearm&quot;         
+## [149] &quot;stddev_yaw_forearm&quot;       &quot;var_yaw_forearm&quot;         
+## [151] &quot;gyros_forearm_x&quot;          &quot;gyros_forearm_y&quot;         
+## [153] &quot;gyros_forearm_z&quot;          &quot;accel_forearm_x&quot;         
+## [155] &quot;accel_forearm_y&quot;          &quot;accel_forearm_z&quot;         
+## [157] &quot;magnet_forearm_x&quot;         &quot;magnet_forearm_y&quot;        
+## [159] &quot;magnet_forearm_z&quot;         &quot;classe&quot;
+</code></pre>
+
+<pre><code class="r">colnames(testSample)
+</code></pre>
+
+<pre><code>##   [1] &quot;X&quot;                        &quot;user_name&quot;               
+##   [3] &quot;raw_timestamp_part_1&quot;     &quot;raw_timestamp_part_2&quot;    
+##   [5] &quot;cvtd_timestamp&quot;           &quot;new_window&quot;              
+##   [7] &quot;num_window&quot;               &quot;roll_belt&quot;               
+##   [9] &quot;pitch_belt&quot;               &quot;yaw_belt&quot;                
+##  [11] &quot;total_accel_belt&quot;         &quot;kurtosis_roll_belt&quot;      
+##  [13] &quot;kurtosis_picth_belt&quot;      &quot;kurtosis_yaw_belt&quot;       
+##  [15] &quot;skewness_roll_belt&quot;       &quot;skewness_roll_belt.1&quot;    
+##  [17] &quot;skewness_yaw_belt&quot;        &quot;max_roll_belt&quot;           
+##  [19] &quot;max_picth_belt&quot;           &quot;max_yaw_belt&quot;            
+##  [21] &quot;min_roll_belt&quot;            &quot;min_pitch_belt&quot;          
+##  [23] &quot;min_yaw_belt&quot;             &quot;amplitude_roll_belt&quot;     
+##  [25] &quot;amplitude_pitch_belt&quot;     &quot;amplitude_yaw_belt&quot;      
+##  [27] &quot;var_total_accel_belt&quot;     &quot;avg_roll_belt&quot;           
+##  [29] &quot;stddev_roll_belt&quot;         &quot;var_roll_belt&quot;           
+##  [31] &quot;avg_pitch_belt&quot;           &quot;stddev_pitch_belt&quot;       
+##  [33] &quot;var_pitch_belt&quot;           &quot;avg_yaw_belt&quot;            
+##  [35] &quot;stddev_yaw_belt&quot;          &quot;var_yaw_belt&quot;            
+##  [37] &quot;gyros_belt_x&quot;             &quot;gyros_belt_y&quot;            
+##  [39] &quot;gyros_belt_z&quot;             &quot;accel_belt_x&quot;            
+##  [41] &quot;accel_belt_y&quot;             &quot;accel_belt_z&quot;            
+##  [43] &quot;magnet_belt_x&quot;            &quot;magnet_belt_y&quot;           
+##  [45] &quot;magnet_belt_z&quot;            &quot;roll_arm&quot;                
+##  [47] &quot;pitch_arm&quot;                &quot;yaw_arm&quot;                 
+##  [49] &quot;total_accel_arm&quot;          &quot;var_accel_arm&quot;           
+##  [51] &quot;avg_roll_arm&quot;             &quot;stddev_roll_arm&quot;         
+##  [53] &quot;var_roll_arm&quot;             &quot;avg_pitch_arm&quot;           
+##  [55] &quot;stddev_pitch_arm&quot;         &quot;var_pitch_arm&quot;           
+##  [57] &quot;avg_yaw_arm&quot;              &quot;stddev_yaw_arm&quot;          
+##  [59] &quot;var_yaw_arm&quot;              &quot;gyros_arm_x&quot;             
+##  [61] &quot;gyros_arm_y&quot;              &quot;gyros_arm_z&quot;             
+##  [63] &quot;accel_arm_x&quot;              &quot;accel_arm_y&quot;             
+##  [65] &quot;accel_arm_z&quot;              &quot;magnet_arm_x&quot;            
+##  [67] &quot;magnet_arm_y&quot;             &quot;magnet_arm_z&quot;            
+##  [69] &quot;kurtosis_roll_arm&quot;        &quot;kurtosis_picth_arm&quot;      
+##  [71] &quot;kurtosis_yaw_arm&quot;         &quot;skewness_roll_arm&quot;       
+##  [73] &quot;skewness_pitch_arm&quot;       &quot;skewness_yaw_arm&quot;        
+##  [75] &quot;max_roll_arm&quot;             &quot;max_picth_arm&quot;           
+##  [77] &quot;max_yaw_arm&quot;              &quot;min_roll_arm&quot;            
+##  [79] &quot;min_pitch_arm&quot;            &quot;min_yaw_arm&quot;             
+##  [81] &quot;amplitude_roll_arm&quot;       &quot;amplitude_pitch_arm&quot;     
+##  [83] &quot;amplitude_yaw_arm&quot;        &quot;roll_dumbbell&quot;           
+##  [85] &quot;pitch_dumbbell&quot;           &quot;yaw_dumbbell&quot;            
+##  [87] &quot;kurtosis_roll_dumbbell&quot;   &quot;kurtosis_picth_dumbbell&quot; 
+##  [89] &quot;kurtosis_yaw_dumbbell&quot;    &quot;skewness_roll_dumbbell&quot;  
+##  [91] &quot;skewness_pitch_dumbbell&quot;  &quot;skewness_yaw_dumbbell&quot;   
+##  [93] &quot;max_roll_dumbbell&quot;        &quot;max_picth_dumbbell&quot;      
+##  [95] &quot;max_yaw_dumbbell&quot;         &quot;min_roll_dumbbell&quot;       
+##  [97] &quot;min_pitch_dumbbell&quot;       &quot;min_yaw_dumbbell&quot;        
+##  [99] &quot;amplitude_roll_dumbbell&quot;  &quot;amplitude_pitch_dumbbell&quot;
+## [101] &quot;amplitude_yaw_dumbbell&quot;   &quot;total_accel_dumbbell&quot;    
+## [103] &quot;var_accel_dumbbell&quot;       &quot;avg_roll_dumbbell&quot;       
+## [105] &quot;stddev_roll_dumbbell&quot;     &quot;var_roll_dumbbell&quot;       
+## [107] &quot;avg_pitch_dumbbell&quot;       &quot;stddev_pitch_dumbbell&quot;   
+## [109] &quot;var_pitch_dumbbell&quot;       &quot;avg_yaw_dumbbell&quot;        
+## [111] &quot;stddev_yaw_dumbbell&quot;      &quot;var_yaw_dumbbell&quot;        
+## [113] &quot;gyros_dumbbell_x&quot;         &quot;gyros_dumbbell_y&quot;        
+## [115] &quot;gyros_dumbbell_z&quot;         &quot;accel_dumbbell_x&quot;        
+## [117] &quot;accel_dumbbell_y&quot;         &quot;accel_dumbbell_z&quot;        
+## [119] &quot;magnet_dumbbell_x&quot;        &quot;magnet_dumbbell_y&quot;       
+## [121] &quot;magnet_dumbbell_z&quot;        &quot;roll_forearm&quot;            
+## [123] &quot;pitch_forearm&quot;            &quot;yaw_forearm&quot;             
+## [125] &quot;kurtosis_roll_forearm&quot;    &quot;kurtosis_picth_forearm&quot;  
+## [127] &quot;kurtosis_yaw_forearm&quot;     &quot;skewness_roll_forearm&quot;   
+## [129] &quot;skewness_pitch_forearm&quot;   &quot;skewness_yaw_forearm&quot;    
+## [131] &quot;max_roll_forearm&quot;         &quot;max_picth_forearm&quot;       
+## [133] &quot;max_yaw_forearm&quot;          &quot;min_roll_forearm&quot;        
+## [135] &quot;min_pitch_forearm&quot;        &quot;min_yaw_forearm&quot;         
+## [137] &quot;amplitude_roll_forearm&quot;   &quot;amplitude_pitch_forearm&quot; 
+## [139] &quot;amplitude_yaw_forearm&quot;    &quot;total_accel_forearm&quot;     
+## [141] &quot;var_accel_forearm&quot;        &quot;avg_roll_forearm&quot;        
+## [143] &quot;stddev_roll_forearm&quot;      &quot;var_roll_forearm&quot;        
+## [145] &quot;avg_pitch_forearm&quot;        &quot;stddev_pitch_forearm&quot;    
+## [147] &quot;var_pitch_forearm&quot;        &quot;avg_yaw_forearm&quot;         
+## [149] &quot;stddev_yaw_forearm&quot;       &quot;var_yaw_forearm&quot;         
+## [151] &quot;gyros_forearm_x&quot;          &quot;gyros_forearm_y&quot;         
+## [153] &quot;gyros_forearm_z&quot;          &quot;accel_forearm_x&quot;         
+## [155] &quot;accel_forearm_y&quot;          &quot;accel_forearm_z&quot;         
+## [157] &quot;magnet_forearm_x&quot;         &quot;magnet_forearm_y&quot;        
+## [159] &quot;magnet_forearm_z&quot;         &quot;problem_id&quot;
+</code></pre>
+
+<pre><code class="r">dim(trainSample)
+</code></pre>
+
+<pre><code>## [1] 19622   160
+</code></pre>
+
+<pre><code class="r">dim(testSample)
+</code></pre>
+
+<pre><code>## [1]  20 160
+</code></pre>
+
+<pre><code class="r">trainNULLS &lt;- sapply(trainSample, function(y) sum(length(which(is.na(y)))))
+testNULLS &lt;- sapply(testSample, function(y) sum(length(which(is.na(y)))))
+
+# There are many columns with all of the values being NAs, so deleting these would be wise
+# I took a threshold of below 40% of the samples can be NAs
+threshold_40_per &lt;- dim(trainSample)[1]*0.4
+
+trainNULLS &lt;- as.data.frame(trainNULLS)
+indexes &lt;- which(trainNULLS&lt;=threshold_40_per)
+
+cleanTrain &lt;- trainSample[, indexes]
+cleanTest &lt;- testSample[,indexes]
+
+# Next we need to take away all the variables that have
+# near-zero variance, one can do this with the function from caret
+# We only need to take care of the variance in the train sample
+# and we are to assume the testing sample corresponds to this
+nzv &lt;- nearZeroVar(cleanTrain)
+</code></pre>
+
+<pre><code>## Error in nearZeroVar(cleanTrain): could not find function &quot;nearZeroVar&quot;
+</code></pre>
+
+<pre><code class="r">filteredTrain &lt;- na.omit(cleanTrain[,-nzv])
+filteredTest &lt;- na.omit(cleanTest[,-nzv])
+filteredTrain$classe &lt;- as.factor(cleanTest$classe)
+</code></pre>
+
+<pre><code>## Error in `$&lt;-.data.frame`(`*tmp*`, classe, value = structure(integer(0), .Label = character(0), class = &quot;factor&quot;)): replacement has 0 rows, data has 19622
+</code></pre>
+
+<pre><code class="r">filteredTest$classe &lt;- as.factor(cleanTest$classe)
+</code></pre>
+
+<pre><code>## Error in `$&lt;-.data.frame`(`*tmp*`, classe, value = structure(integer(0), .Label = character(0), class = &quot;factor&quot;)): replacement has 0 rows, data has 20
+</code></pre>
+
+<pre><code class="r">summary(filteredTrain)
+</code></pre>
+
+<pre><code>##        X            user_name    raw_timestamp_part_1 raw_timestamp_part_2
+##  Min.   :    1   adelmo  :3892   Min.   :1.322e+09    Min.   :   294      
+##  1st Qu.: 4906   carlitos:3112   1st Qu.:1.323e+09    1st Qu.:252912      
+##  Median : 9812   charles :3536   Median :1.323e+09    Median :496380      
+##  Mean   : 9812   eurico  :3070   Mean   :1.323e+09    Mean   :500656      
+##  3rd Qu.:14717   jeremy  :3402   3rd Qu.:1.323e+09    3rd Qu.:751891      
+##  Max.   :19622   pedro   :2610   Max.   :1.323e+09    Max.   :998801      
+##                                                                           
+##           cvtd_timestamp    num_window      roll_belt     
+##  28/11/2011 14:14: 1498   Min.   :  1.0   Min.   :-28.90  
+##  05/12/2011 11:24: 1497   1st Qu.:222.0   1st Qu.:  1.10  
+##  30/11/2011 17:11: 1440   Median :424.0   Median :113.00  
+##  05/12/2011 11:25: 1425   Mean   :430.6   Mean   : 64.41  
+##  02/12/2011 14:57: 1380   3rd Qu.:644.0   3rd Qu.:123.00  
+##  02/12/2011 13:34: 1375   Max.   :864.0   Max.   :162.00  
+##  (Other)         :11007                                   
+##    pitch_belt          yaw_belt       total_accel_belt  gyros_belt_x      
+##  Min.   :-55.8000   Min.   :-180.00   Min.   : 0.00    Min.   :-1.040000  
+##  1st Qu.:  1.7600   1st Qu.: -88.30   1st Qu.: 3.00    1st Qu.:-0.030000  
+##  Median :  5.2800   Median : -13.00   Median :17.00    Median : 0.030000  
+##  Mean   :  0.3053   Mean   : -11.21   Mean   :11.31    Mean   :-0.005592  
+##  3rd Qu.: 14.9000   3rd Qu.:  12.90   3rd Qu.:18.00    3rd Qu.: 0.110000  
+##  Max.   : 60.3000   Max.   : 179.00   Max.   :29.00    Max.   : 2.220000  
+##                                                                           
+##   gyros_belt_y       gyros_belt_z      accel_belt_x       accel_belt_y   
+##  Min.   :-0.64000   Min.   :-1.4600   Min.   :-120.000   Min.   :-69.00  
+##  1st Qu.: 0.00000   1st Qu.:-0.2000   1st Qu.: -21.000   1st Qu.:  3.00  
+##  Median : 0.02000   Median :-0.1000   Median : -15.000   Median : 35.00  
+##  Mean   : 0.03959   Mean   :-0.1305   Mean   :  -5.595   Mean   : 30.15  
+##  3rd Qu.: 0.11000   3rd Qu.:-0.0200   3rd Qu.:  -5.000   3rd Qu.: 61.00  
+##  Max.   : 0.64000   Max.   : 1.6200   Max.   :  85.000   Max.   :164.00  
+##                                                                          
+##   accel_belt_z     magnet_belt_x   magnet_belt_y   magnet_belt_z   
+##  Min.   :-275.00   Min.   :-52.0   Min.   :354.0   Min.   :-623.0  
+##  1st Qu.:-162.00   1st Qu.:  9.0   1st Qu.:581.0   1st Qu.:-375.0  
+##  Median :-152.00   Median : 35.0   Median :601.0   Median :-320.0  
+##  Mean   : -72.59   Mean   : 55.6   Mean   :593.7   Mean   :-345.5  
+##  3rd Qu.:  27.00   3rd Qu.: 59.0   3rd Qu.:610.0   3rd Qu.:-306.0  
+##  Max.   : 105.00   Max.   :485.0   Max.   :673.0   Max.   : 293.0  
+##                                                                    
+##     roll_arm         pitch_arm          yaw_arm          total_accel_arm
+##  Min.   :-180.00   Min.   :-88.800   Min.   :-180.0000   Min.   : 1.00  
+##  1st Qu.: -31.77   1st Qu.:-25.900   1st Qu.: -43.1000   1st Qu.:17.00  
+##  Median :   0.00   Median :  0.000   Median :   0.0000   Median :27.00  
+##  Mean   :  17.83   Mean   : -4.612   Mean   :  -0.6188   Mean   :25.51  
+##  3rd Qu.:  77.30   3rd Qu.: 11.200   3rd Qu.:  45.8750   3rd Qu.:33.00  
+##  Max.   : 180.00   Max.   : 88.500   Max.   : 180.0000   Max.   :66.00  
+##                                                                         
+##   gyros_arm_x        gyros_arm_y       gyros_arm_z       accel_arm_x     
+##  Min.   :-6.37000   Min.   :-3.4400   Min.   :-2.3300   Min.   :-404.00  
+##  1st Qu.:-1.33000   1st Qu.:-0.8000   1st Qu.:-0.0700   1st Qu.:-242.00  
+##  Median : 0.08000   Median :-0.2400   Median : 0.2300   Median : -44.00  
+##  Mean   : 0.04277   Mean   :-0.2571   Mean   : 0.2695   Mean   : -60.24  
+##  3rd Qu.: 1.57000   3rd Qu.: 0.1400   3rd Qu.: 0.7200   3rd Qu.:  84.00  
+##  Max.   : 4.87000   Max.   : 2.8400   Max.   : 3.0200   Max.   : 437.00  
+##                                                                          
+##   accel_arm_y      accel_arm_z       magnet_arm_x     magnet_arm_y   
+##  Min.   :-318.0   Min.   :-636.00   Min.   :-584.0   Min.   :-392.0  
+##  1st Qu.: -54.0   1st Qu.:-143.00   1st Qu.:-300.0   1st Qu.:  -9.0  
+##  Median :  14.0   Median : -47.00   Median : 289.0   Median : 202.0  
+##  Mean   :  32.6   Mean   : -71.25   Mean   : 191.7   Mean   : 156.6  
+##  3rd Qu.: 139.0   3rd Qu.:  23.00   3rd Qu.: 637.0   3rd Qu.: 323.0  
+##  Max.   : 308.0   Max.   : 292.00   Max.   : 782.0   Max.   : 583.0  
+##                                                                      
+##   magnet_arm_z    roll_dumbbell     pitch_dumbbell     yaw_dumbbell     
+##  Min.   :-597.0   Min.   :-153.71   Min.   :-149.59   Min.   :-150.871  
+##  1st Qu.: 131.2   1st Qu.: -18.49   1st Qu.: -40.89   1st Qu.: -77.644  
+##  Median : 444.0   Median :  48.17   Median : -20.96   Median :  -3.324  
+##  Mean   : 306.5   Mean   :  23.84   Mean   : -10.78   Mean   :   1.674  
+##  3rd Qu.: 545.0   3rd Qu.:  67.61   3rd Qu.:  17.50   3rd Qu.:  79.643  
+##  Max.   : 694.0   Max.   : 153.55   Max.   : 149.40   Max.   : 154.952  
+##                                                                         
+##  total_accel_dumbbell gyros_dumbbell_x    gyros_dumbbell_y  
+##  Min.   : 0.00        Min.   :-204.0000   Min.   :-2.10000  
+##  1st Qu.: 4.00        1st Qu.:  -0.0300   1st Qu.:-0.14000  
+##  Median :10.00        Median :   0.1300   Median : 0.03000  
+##  Mean   :13.72        Mean   :   0.1611   Mean   : 0.04606  
+##  3rd Qu.:19.00        3rd Qu.:   0.3500   3rd Qu.: 0.21000  
+##  Max.   :58.00        Max.   :   2.2200   Max.   :52.00000  
+##                                                             
+##  gyros_dumbbell_z  accel_dumbbell_x  accel_dumbbell_y  accel_dumbbell_z 
+##  Min.   : -2.380   Min.   :-419.00   Min.   :-189.00   Min.   :-334.00  
+##  1st Qu.: -0.310   1st Qu.: -50.00   1st Qu.:  -8.00   1st Qu.:-142.00  
+##  Median : -0.130   Median :  -8.00   Median :  41.50   Median :  -1.00  
+##  Mean   : -0.129   Mean   : -28.62   Mean   :  52.63   Mean   : -38.32  
+##  3rd Qu.:  0.030   3rd Qu.:  11.00   3rd Qu.: 111.00   3rd Qu.:  38.00  
+##  Max.   :317.000   Max.   : 235.00   Max.   : 315.00   Max.   : 318.00  
+##                                                                         
+##  magnet_dumbbell_x magnet_dumbbell_y magnet_dumbbell_z  roll_forearm      
+##  Min.   :-643.0    Min.   :-3600     Min.   :-262.00   Min.   :-180.0000  
+##  1st Qu.:-535.0    1st Qu.:  231     1st Qu.: -45.00   1st Qu.:  -0.7375  
+##  Median :-479.0    Median :  311     Median :  13.00   Median :  21.7000  
+##  Mean   :-328.5    Mean   :  221     Mean   :  46.05   Mean   :  33.8265  
+##  3rd Qu.:-304.0    3rd Qu.:  390     3rd Qu.:  95.00   3rd Qu.: 140.0000  
+##  Max.   : 592.0    Max.   :  633     Max.   : 452.00   Max.   : 180.0000  
+##                                                                           
+##  pitch_forearm     yaw_forearm      total_accel_forearm gyros_forearm_x  
+##  Min.   :-72.50   Min.   :-180.00   Min.   :  0.00      Min.   :-22.000  
+##  1st Qu.:  0.00   1st Qu.: -68.60   1st Qu.: 29.00      1st Qu.: -0.220  
+##  Median :  9.24   Median :   0.00   Median : 36.00      Median :  0.050  
+##  Mean   : 10.71   Mean   :  19.21   Mean   : 34.72      Mean   :  0.158  
+##  3rd Qu.: 28.40   3rd Qu.: 110.00   3rd Qu.: 41.00      3rd Qu.:  0.560  
+##  Max.   : 89.80   Max.   : 180.00   Max.   :108.00      Max.   :  3.970  
+##                                                                          
+##  gyros_forearm_y     gyros_forearm_z    accel_forearm_x   accel_forearm_y 
+##  Min.   : -7.02000   Min.   : -8.0900   Min.   :-498.00   Min.   :-632.0  
+##  1st Qu.: -1.46000   1st Qu.: -0.1800   1st Qu.:-178.00   1st Qu.:  57.0  
+##  Median :  0.03000   Median :  0.0800   Median : -57.00   Median : 201.0  
+##  Mean   :  0.07517   Mean   :  0.1512   Mean   : -61.65   Mean   : 163.7  
+##  3rd Qu.:  1.62000   3rd Qu.:  0.4900   3rd Qu.:  76.00   3rd Qu.: 312.0  
+##  Max.   :311.00000   Max.   :231.0000   Max.   : 477.00   Max.   : 923.0  
+##                                                                           
+##  accel_forearm_z   magnet_forearm_x  magnet_forearm_y magnet_forearm_z
+##  Min.   :-446.00   Min.   :-1280.0   Min.   :-896.0   Min.   :-973.0  
+##  1st Qu.:-182.00   1st Qu.: -616.0   1st Qu.:   2.0   1st Qu.: 191.0  
+##  Median : -39.00   Median : -378.0   Median : 591.0   Median : 511.0  
+##  Mean   : -55.29   Mean   : -312.6   Mean   : 380.1   Mean   : 393.6  
+##  3rd Qu.:  26.00   3rd Qu.:  -73.0   3rd Qu.: 737.0   3rd Qu.: 653.0  
+##  Max.   : 291.00   Max.   :  672.0   Max.   :1480.0   Max.   :1090.0  
+##                                                                       
+##  classe  
+##  A:5580  
+##  B:3797  
+##  C:3422  
+##  D:3216  
+##  E:3607  
+##          
+## 
+</code></pre>
+
+<pre><code class="r"># Next, normalizing and centering the variables would
+# be good, since there seems to be large differences between the minimums
+# and maximums of the variables
+# The variable index is excluded since it&#39;s only a sequence along row numbers
+
+preProcTrain &lt;- preProcess(filteredTrain[,6:58], method=c(&quot;center&quot;, &quot;scale&quot;))
+</code></pre>
+
+<pre><code>## Error in preProcess(filteredTrain[, 6:58], method = c(&quot;center&quot;, &quot;scale&quot;)): could not find function &quot;preProcess&quot;
+</code></pre>
+
+<pre><code class="r">normTrain &lt;- predict(preProcTrain, filteredTrain[,6:58])
+</code></pre>
+
+<pre><code>## Error in UseMethod(&quot;predict&quot;): no applicable method for &#39;predict&#39; applied to an object of class &quot;preProcess&quot;
+</code></pre>
+
+<pre><code class="r">preProcTest &lt;- preProcess(filteredTest[,6:58], method=c(&quot;center&quot;, &quot;scale&quot;))
+</code></pre>
+
+<pre><code>## Error in preProcess(filteredTest[, 6:58], method = c(&quot;center&quot;, &quot;scale&quot;)): could not find function &quot;preProcess&quot;
+</code></pre>
+
+<pre><code class="r">normTest &lt;- predict(preProcTest, filteredTest[,6:58])
+</code></pre>
+
+<pre><code>## Error in UseMethod(&quot;predict&quot;): no applicable method for &#39;predict&#39; applied to an object of class &quot;preProcess&quot;
+</code></pre>
+
+<pre><code class="r"># See the correlation between the numeric predictors
+highlyCor &lt;- findCorrelation(cor(normTrain), cutoff=.75, verbose=FALSE)
+</code></pre>
+
+<pre><code>## Error in findCorrelation(cor(normTrain), cutoff = 0.75, verbose = FALSE): could not find function &quot;findCorrelation&quot;
+</code></pre>
+
+<pre><code class="r"># And we want to remove these to not clutter the analysis
+normTrain &lt;- normTrain[,-highlyCor]
+normTest &lt;- normTest[, -highlyCor]
+
+# We add back the classe (outcome) predictor
+normTrain$classe &lt;- as.factor(filteredTrain$classe)
+normTest$classe &lt;- as.factor(filteredTest$problem_id)
+
+
+
+# Create a validation test partition / Data Slicing
+CV &lt;- createDataPartition(normTrain$classe, p=0.70, list=FALSE)
+</code></pre>
+
+<pre><code>## Error in createDataPartition(normTrain$classe, p = 0.7, list = FALSE): could not find function &quot;createDataPartition&quot;
+</code></pre>
+
+<pre><code class="r">normTrainT &lt;- normTrain[CV,]
+normValid &lt;- normTrain[-CV,]
+</code></pre>
+
+<h2>Applying predictors:: Random Forest</h2>
+
+<pre><code>## Error in confusionMatrix(predictRF, normValid$classe): could not find function &quot;confusionMatrix&quot;
+</code></pre>
+
+<pre><code>## $positive
+## NULL
+## 
+## $table
+##           Reference
+## Prediction    A    B    C    D    E
+##          A 1674    1    0    0    0
+##          B    0 1138    1    0    0
+##          C    0    0 1024    7    0
+##          D    0    0    1  957    0
+##          E    0    0    0    0 1082
+## 
+## $overall
+##       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
+##      0.9983008      0.9978506      0.9968773      0.9991849      0.2844520 
+## AccuracyPValue  McnemarPValue 
+##      0.0000000            NaN 
+## 
+## $byClass
+##          Sensitivity Specificity Pos Pred Value Neg Pred Value Precision
+## Class: A   1.0000000   0.9997625      0.9994030      1.0000000 0.9994030
+## Class: B   0.9991220   0.9997893      0.9991220      0.9997893 0.9991220
+## Class: C   0.9980507   0.9985594      0.9932105      0.9995880 0.9932105
+## Class: D   0.9927386   0.9997968      0.9989562      0.9985793 0.9989562
+## Class: E   1.0000000   1.0000000      1.0000000      1.0000000 1.0000000
+##             Recall        F1 Prevalence Detection Rate
+## Class: A 1.0000000 0.9997014  0.2844520      0.2844520
+## Class: B 0.9991220 0.9991220  0.1935429      0.1933730
+## Class: C 0.9980507 0.9956247  0.1743415      0.1740017
+## Class: D 0.9927386 0.9958377  0.1638063      0.1626168
+## Class: E 1.0000000 1.0000000  0.1838573      0.1838573
+##          Detection Prevalence Balanced Accuracy
+## Class: A            0.2846219         0.9998813
+## Class: B            0.1935429         0.9994557
+## Class: C            0.1751912         0.9983050
+## Class: D            0.1627867         0.9962677
+## Class: E            0.1838573         1.0000000
+## 
+## $mode
+## [1] &quot;sens_spec&quot;
+## 
+## $dots
+## list()
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;confusionMatrix&quot;
+</code></pre>
+
+<pre><code>## Random Forest: 15.75 sec elapsed
+</code></pre>
+
+<pre><code>## Error in varImp(RandomF): could not find function &quot;varImp&quot;
+</code></pre>
+
+<pre><code>## Error in qplot(num_window, magnet_dumbbell_z, col = RF_Right, data = normValid, : could not find function &quot;qplot&quot;
+</code></pre>
+
+<pre><code>##     left daughter right daughter           split var split point status
+## 1               2              3          num_window -1.55355064      1
+## 2               4              5   magnet_dumbbell_z -0.68270311      1
+## 3               6              7       magnet_belt_y -1.09798364      1
+## 4               8              9          num_window -1.64430955      1
+## 5              10             11    magnet_forearm_x  0.54927576      1
+## 6              12             13    magnet_forearm_y  0.91167549      1
+## 7              14             15       roll_dumbbell  0.50303406      1
+## 8               0              0                &lt;NA&gt;  0.00000000     -1
+## 9               0              0                &lt;NA&gt;  0.00000000     -1
+## 10             16             17    magnet_forearm_y  0.45228785      1
+## 11              0              0                &lt;NA&gt;  0.00000000     -1
+## 12             18             19   magnet_dumbbell_z  0.88198762      1
+## 13             20             21       magnet_belt_x  1.92272540      1
+## 14             22             23       magnet_belt_x -0.18854769      1
+## 15             24             25       roll_dumbbell  0.72223602      1
+## 16             26             27          num_window -1.63624209      1
+## 17             28             29        yaw_dumbbell  1.54622514      1
+## 18             30             31     accel_forearm_z  1.31355439      1
+## 19             32             33    gyros_dumbbell_y -1.82143302      1
+## 20              0              0                &lt;NA&gt;  0.00000000     -1
+## 21              0              0                &lt;NA&gt;  0.00000000     -1
+## 22             34             35   magnet_dumbbell_z -0.88989960      1
+## 23             36             37     accel_forearm_z -0.99863535      1
+## 24             38             39   magnet_dumbbell_z -0.11827129      1
+## 25             40             41   magnet_dumbbell_z -0.32546778      1
+## 26             42             43     accel_forearm_z -0.40252393      1
+## 27              0              0                &lt;NA&gt;  0.00000000     -1
+## 28              0              0                &lt;NA&gt;  0.00000000     -1
+## 29             44             45     accel_forearm_x -0.45044864      1
+## 30              0              0                &lt;NA&gt;  0.00000000     -1
+## 31              0              0                &lt;NA&gt;  0.00000000     -1
+## 32              0              0                &lt;NA&gt;  0.00000000     -1
+## 33             46             47     accel_forearm_x  1.13598555      1
+## 34             48             49            roll_arm -0.44375013      1
+## 35             50             51      pitch_dumbbell  0.23787118      1
+## 36             52             53 total_accel_forearm -0.31974279      1
+## 37             54             55            roll_arm  0.16935840      1
+## 38             56             57     accel_forearm_z  0.34171214      1
+## 39             58             59          num_window -0.72461930      1
+## 40             60             61            roll_arm -1.55449383      1
+## 41             62             63        yaw_dumbbell -0.38295544      1
+## 42              0              0                &lt;NA&gt;  0.00000000     -1
+## 43              0              0                &lt;NA&gt;  0.00000000     -1
+## 44              0              0                &lt;NA&gt;  0.00000000     -1
+## 45              0              0                &lt;NA&gt;  0.00000000     -1
+## 46              0              0                &lt;NA&gt;  0.00000000     -1
+## 47             64             65          num_window -0.68428200      1
+## 48             66             67   magnet_dumbbell_z -0.96134666      1
+## 49             68             69            roll_arm  0.24977734      1
+## 50             70             71     accel_forearm_x  1.32425348      1
+## 51             72             73       roll_dumbbell -0.11583021      1
+## 52             74             75    magnet_forearm_x  0.86055220      1
+## 53             76             77     accel_forearm_x  1.43499933      1
+## 54             78             79          num_window  0.02767119      1
+## 55             80             81            roll_arm  0.91443647      1
+## 56             82             83        magnet_arm_z -1.64868088      1
+## 57             84             85      pitch_dumbbell -0.24941688      1
+## 58              0              0                &lt;NA&gt;  0.00000000     -1
+## 59             86             87       magnet_belt_y -0.03298674      1
+## 60              0              0                &lt;NA&gt;  0.00000000     -1
+## 61             88             89       magnet_belt_x -0.59366282      1
+## 62             90             91     accel_forearm_z  1.17265533      1
+## 63             92             93     accel_forearm_x  0.70130812      1
+## 64              0              0                &lt;NA&gt;  0.00000000     -1
+## 65              0              0                &lt;NA&gt;  0.00000000     -1
+## 66             94             95    gyros_dumbbell_y -0.84600766      1
+## 67             96             97     accel_forearm_x  0.71515135      1
+## 68             98             99     gyros_forearm_z  0.43531636      1
+## 69            100            101         gyros_arm_z -1.09275898      1
+## 70            102            103          num_window -0.92428889      1
+## 71            104            105    magnet_forearm_y  0.59167470      1
+## 72            106            107     accel_forearm_x  1.09722451      1
+## 73            108            109       roll_dumbbell  0.30554877      1
+## 74            110            111       magnet_belt_x  0.20877677      1
+## 75              0              0                &lt;NA&gt;  0.00000000     -1
+## 76            112            113       magnet_belt_y  0.70970846      1
+## 77              0              0                &lt;NA&gt;  0.00000000     -1
+## 78            114            115          num_window -1.03521644      1
+## 79            116            117          num_window  0.54398853      1
+## 80            118            119       roll_dumbbell  0.25901140      1
+## 81            120            121       magnet_belt_y -0.31324908      1
+## 82              0              0                &lt;NA&gt;  0.00000000     -1
+## 83            122            123      pitch_dumbbell  0.85900170      1
+## 84            124            125        magnet_arm_z -1.52468331      1
+## 85            126            127          num_window  0.71542202      1
+## 86            128            129          num_window -0.55721954      1
+## 87            130            131    magnet_forearm_y -1.50109121      1
+## 88            132            133       magnet_belt_y  0.35938053      1
+## 89            134            135       roll_dumbbell  1.06777282      1
+## 90            136            137       roll_dumbbell  0.83036420      1
+## 91            138            139            roll_arm  0.79140236      1
+## 92            140            141    magnet_forearm_x  1.21938476      1
+## 93            142            143       magnet_belt_y -0.17311791      1
+## 94              0              0                &lt;NA&gt;  0.00000000     -1
+## 95            144            145       magnet_belt_y  0.35938053      1
+## 96            146            147      pitch_dumbbell  1.21510915      1
+## 97            148            149     accel_forearm_z -0.74935239      1
+## 98            150            151         gyros_arm_y  1.29444798      1
+## 99              0              0                &lt;NA&gt;  0.00000000     -1
+## 100           152            153    magnet_forearm_x -1.16562683      1
+## 101           154            155          num_window -1.46077487      1
+## 102           156            157    gyros_dumbbell_y -0.84600766      1
+## 103           158            159   magnet_dumbbell_z -0.52551956      1
+## 104           160            161     accel_forearm_z -0.94805619      1
+## 105           162            163         gyros_arm_z -0.96621533      1
+## 106           164            165         gyros_arm_y  1.31206621      1
+## 107           166            167          num_window -1.44060622      1
+## 108           168            169     accel_forearm_z -0.72045002      1
+## 109           170            171    gyros_dumbbell_y  0.77696897      1
+## 110           172            173     accel_forearm_z -1.12147042      1
+## 111             0              0                &lt;NA&gt;  0.00000000     -1
+## 112           174            175    magnet_forearm_x  0.37058003      1
+## 113           176            177     accel_forearm_x -0.44491135      1
+## 114             0              0                &lt;NA&gt;  0.00000000     -1
+## 115             0              0                &lt;NA&gt;  0.00000000     -1
+## 116           178            179    magnet_forearm_y -0.02476854      1
+## 117           180            181          num_window  0.73357380      1
+## 118           182            183     gyros_forearm_z -0.32559174      1
+## 119           184            185     accel_forearm_z  1.60619090      1
+## 120           186            187       magnet_belt_x -0.11064093      1
+## 121           188            189      pitch_dumbbell  0.49069751      1
+## 122           190            191       magnet_belt_x -0.34436120      1
+## 123           192            193            roll_arm -1.64453555      1
+## 124             0              0                &lt;NA&gt;  0.00000000     -1
+## 125           194            195    magnet_forearm_y  0.05277766      1
+## 126           196            197       magnet_belt_x  0.73854271      1
+## 127           198            199        yaw_dumbbell -0.34655276      1
+## 128           200            201    gyros_dumbbell_y -0.15747212      1
+## 129           202            203          num_window  1.48183056      1
+## 130           204            205    gyros_dumbbell_y -1.09191322      1
+## 131           206            207          num_window  0.19103722      1
+## 132           208            209 total_accel_forearm  0.97302338      1
+## 133           210            211 total_accel_forearm  0.37636207      1
+## 134           212            213          num_window  1.18333460      1
+## 135           214            215    gyros_dumbbell_y -0.50993675      1
+## 136           216            217     accel_forearm_x -0.07945007      1
+## 137           218            219         gyros_arm_z -2.07799169      1
+## 138           220            221    magnet_forearm_y  1.25032663      1
+## 139             0              0                &lt;NA&gt;  0.00000000     -1
+## 140           222            223          num_window -0.12964424      1
+## 141           224            225       magnet_belt_x -0.46901201      1
+## 142           226            227    gyros_dumbbell_y  0.34253583      1
+## 143           228            229         gyros_arm_y  0.56622757      1
+## 144           230            231     gyros_forearm_z  0.53506086      1
+## 145           232            233       roll_dumbbell -0.39410021      1
+## 146           234            235        yaw_dumbbell -0.95101691      1
+## 147           236            237        gyros_belt_y  0.13308906      1
+## 148             0              0                &lt;NA&gt;  0.00000000     -1
+## 149             0              0                &lt;NA&gt;  0.00000000     -1
+## 150           238            239       magnet_belt_x -0.94424322      1
+## 151           240            241   magnet_dumbbell_z -1.02207667      1
+## 152             0              0                &lt;NA&gt;  0.00000000     -1
+## 153           242            243       magnet_belt_x -0.74947633      1
+## 154             0              0                &lt;NA&gt;  0.00000000     -1
+## 155           244            245        gyros_belt_y  0.06917947      1
+## 156           246            247            roll_arm  1.00516554      1
+## 157           248            249          num_window -1.16227891      1
+## 158           250            251          num_window -0.33939816      1
+## 159           252            253   magnet_dumbbell_z  1.67147770      1
+## 160             0              0                &lt;NA&gt;  0.00000000     -1
+## 161           254            255        magnet_arm_z  0.15464188      1
+## 162           256            257 total_accel_forearm -0.22029924      1
+## 163           258            259    magnet_forearm_y  0.72320877      1
+## 164           260            261          num_window -1.45674114      1
+## 165           262            263         gyros_arm_y  2.86834369      1
+## 166             0              0                &lt;NA&gt;  0.00000000     -1
+##     prediction
+## 1         &lt;NA&gt;
+## 2         &lt;NA&gt;
+## 3         &lt;NA&gt;
+## 4         &lt;NA&gt;
+## 5         &lt;NA&gt;
+## 6         &lt;NA&gt;
+## 7         &lt;NA&gt;
+## 8            A
+## 9            E
+## 10        &lt;NA&gt;
+## 11           E
+## 12        &lt;NA&gt;
+## 13        &lt;NA&gt;
+## 14        &lt;NA&gt;
+## 15        &lt;NA&gt;
+## 16        &lt;NA&gt;
+## 17        &lt;NA&gt;
+## 18        &lt;NA&gt;
+## 19        &lt;NA&gt;
+## 20           D
+## 21           E
+## 22        &lt;NA&gt;
+## 23        &lt;NA&gt;
+## 24        &lt;NA&gt;
+## 25        &lt;NA&gt;
+## 26        &lt;NA&gt;
+## 27           E
+## 28           E
+## 29        &lt;NA&gt;
+## 30           E
+## 31           D
+## 32           E
+## 33        &lt;NA&gt;
+## 34        &lt;NA&gt;
+## 35        &lt;NA&gt;
+## 36        &lt;NA&gt;
+## 37        &lt;NA&gt;
+## 38        &lt;NA&gt;
+## 39        &lt;NA&gt;
+## 40        &lt;NA&gt;
+## 41        &lt;NA&gt;
+## 42           D
+## 43           E
+## 44           D
+## 45           E
+## 46           D
+## 47        &lt;NA&gt;
+## 48        &lt;NA&gt;
+## 49        &lt;NA&gt;
+## 50        &lt;NA&gt;
+## 51        &lt;NA&gt;
+## 52        &lt;NA&gt;
+## 53        &lt;NA&gt;
+## 54        &lt;NA&gt;
+## 55        &lt;NA&gt;
+## 56        &lt;NA&gt;
+## 57        &lt;NA&gt;
+## 58           A
+## 59        &lt;NA&gt;
+## 60           A
+## 61        &lt;NA&gt;
+## 62        &lt;NA&gt;
+## 63        &lt;NA&gt;
+## 64           B
+## 65           D
+## 66        &lt;NA&gt;
+## 67        &lt;NA&gt;
+## 68        &lt;NA&gt;
+## 69        &lt;NA&gt;
+## 70        &lt;NA&gt;
+## 71        &lt;NA&gt;
+## 72        &lt;NA&gt;
+## 73        &lt;NA&gt;
+## 74        &lt;NA&gt;
+## 75           A
+## 76        &lt;NA&gt;
+## 77           A
+## 78        &lt;NA&gt;
+## 79        &lt;NA&gt;
+## 80        &lt;NA&gt;
+## 81        &lt;NA&gt;
+## 82           E
+## 83        &lt;NA&gt;
+## 84        &lt;NA&gt;
+## 85        &lt;NA&gt;
+## 86        &lt;NA&gt;
+## 87        &lt;NA&gt;
+## 88        &lt;NA&gt;
+## 89        &lt;NA&gt;
+## 90        &lt;NA&gt;
+## 91        &lt;NA&gt;
+## 92        &lt;NA&gt;
+## 93        &lt;NA&gt;
+## 94           B
+## 95        &lt;NA&gt;
+## 96        &lt;NA&gt;
+## 97        &lt;NA&gt;
+## 98        &lt;NA&gt;
+## 99           B
+## 100       &lt;NA&gt;
+## 101       &lt;NA&gt;
+## 102       &lt;NA&gt;
+## 103       &lt;NA&gt;
+## 104       &lt;NA&gt;
+## 105       &lt;NA&gt;
+## 106       &lt;NA&gt;
+## 107       &lt;NA&gt;
+## 108       &lt;NA&gt;
+## 109       &lt;NA&gt;
+## 110       &lt;NA&gt;
+## 111          E
+## 112       &lt;NA&gt;
+## 113       &lt;NA&gt;
+## 114          E
+## 115          A
+## 116       &lt;NA&gt;
+## 117       &lt;NA&gt;
+## 118       &lt;NA&gt;
+## 119       &lt;NA&gt;
+## 120       &lt;NA&gt;
+## 121       &lt;NA&gt;
+## 122       &lt;NA&gt;
+## 123       &lt;NA&gt;
+## 124          B
+## 125       &lt;NA&gt;
+## 126       &lt;NA&gt;
+## 127       &lt;NA&gt;
+## 128       &lt;NA&gt;
+## 129       &lt;NA&gt;
+## 130       &lt;NA&gt;
+## 131       &lt;NA&gt;
+## 132       &lt;NA&gt;
+## 133       &lt;NA&gt;
+## 134       &lt;NA&gt;
+## 135       &lt;NA&gt;
+## 136       &lt;NA&gt;
+## 137       &lt;NA&gt;
+## 138       &lt;NA&gt;
+## 139          C
+## 140       &lt;NA&gt;
+## 141       &lt;NA&gt;
+## 142       &lt;NA&gt;
+## 143       &lt;NA&gt;
+## 144       &lt;NA&gt;
+## 145       &lt;NA&gt;
+## 146       &lt;NA&gt;
+## 147       &lt;NA&gt;
+## 148          A
+## 149          B
+## 150       &lt;NA&gt;
+## 151       &lt;NA&gt;
+## 152          C
+## 153       &lt;NA&gt;
+## 154          A
+## 155       &lt;NA&gt;
+## 156       &lt;NA&gt;
+## 157       &lt;NA&gt;
+## 158       &lt;NA&gt;
+## 159       &lt;NA&gt;
+## 160          A
+## 161       &lt;NA&gt;
+## 162       &lt;NA&gt;
+## 163       &lt;NA&gt;
+## 164       &lt;NA&gt;
+## 165       &lt;NA&gt;
+## 166          A
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 1641 rows ]
+</code></pre>
+
+<h2>Applying predictors::SVM</h2>
+
+<pre><code>## Error in confusionMatrix(predictSVM, normValid$classe): could not find function &quot;confusionMatrix&quot;
+</code></pre>
+
+<pre><code>## $positive
+## NULL
+## 
+## $table
+##           Reference
+## Prediction    A    B    C    D    E
+##          A 1658   89    4    2    1
+##          B    4 1018   21    0    7
+##          C   11   31  963  106   13
+##          D    0    0   36  855   29
+##          E    1    1    2    1 1032
+## 
+## $overall
+##       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
+##      0.9389975      0.9227214      0.9325769      0.9449784      0.2844520 
+## AccuracyPValue  McnemarPValue 
+##      0.0000000            NaN 
+## 
+## $byClass
+##          Sensitivity Specificity Pos Pred Value Neg Pred Value Precision
+## Class: A   0.9904421   0.9772026      0.9452680      0.9961268 0.9452680
+## Class: B   0.8937665   0.9932575      0.9695238      0.9749741 0.9695238
+## Class: C   0.9385965   0.9668656      0.8567616      0.9867675 0.8567616
+## Class: D   0.8869295   0.9867913      0.9293478      0.9780463 0.9293478
+## Class: E   0.9537893   0.9989590      0.9951784      0.9896865 0.9951784
+##             Recall        F1 Prevalence Detection Rate
+## Class: A 0.9904421 0.9673279  0.2844520      0.2817332
+## Class: B 0.8937665 0.9301051  0.1935429      0.1729822
+## Class: C 0.9385965 0.8958140  0.1743415      0.1636364
+## Class: D 0.8869295 0.9076433  0.1638063      0.1452846
+## Class: E 0.9537893 0.9740444  0.1838573      0.1753611
+##          Detection Prevalence Balanced Accuracy
+## Class: A            0.2980459         0.9838223
+## Class: B            0.1784197         0.9435120
+## Class: C            0.1909941         0.9527311
+## Class: D            0.1563297         0.9368604
+## Class: E            0.1762107         0.9763741
+## 
+## $mode
+## [1] &quot;sens_spec&quot;
+## 
+## $dots
+## list()
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;confusionMatrix&quot;
+</code></pre>
+
+<pre><code>## SVM: 32.67 sec elapsed
+</code></pre>
+
+<pre><code>## Error in qplot(num_window, magnet_dumbbell_z, col = SVM_Right, data = normValid, : could not find function &quot;qplot&quot;
+</code></pre>
+
+<h1>We can see that Random Forest creates a very accurate prediction of the output class with 0.998 with an out of sample error 0.0003960396.</h1>
+
+<h1>Nevertheless, both algorithms perform very well in predicting the outcome at 0.939 and above (SVM is 0.9397)</h1>
+
+<h1>The running time of the algorithms is much worse with SVM taking 43 seconds, and the Random Forest algorithm taking 24 seconds</h1>
+
+<h1>Last thing is to apply the model to produce the results of the test data with the test data</h1>
+
+<h1>When I applied the RF model to the test data set, the actual results were much worse at the testing dataset</h1>
+
+<h2>RESULTS</h2>
+
+<pre><code>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 
+##  B  A  C  A  D  E  C  B  A  A  B  C  D  C  E  E  E  B  B  D 
+## Levels: A B C D E
+</code></pre>
+
+<pre><code>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 
+##  B  A  C  A  A  E  D  D  A  A  A  C  B  A  E  E  A  B  D  B 
+## Levels: A B C D E
+</code></pre>
+
+<h1>The validation test got good results</h1>
+
+<h1>But if the algorithm performs better on the test set (that we know the results for)</h1>
+
+<h1>It is better to use the SVM model</h1>
+
+</body>
+
+</html>
