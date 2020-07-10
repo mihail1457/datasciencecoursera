@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Mihail Petkov" />
+
+
+<title>PML Predict</title>
+
+<script src="PML_Predict_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="PML_Predict_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="PML_Predict_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="PML_Predict_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="PML_Predict_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="PML_Predict_files/navigation-1.1/tabsets.js"></script>
+<link href="PML_Predict_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="PML_Predict_files/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">PML Predict</h1>
+<h4 class="author">Mihail Petkov</h4>
+<h4 class="date">7/9/2020</h4>
+
+</div>
+
+
+<div id="background" class="section level2">
+<h2>Background</h2>
+<p>Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. More information is available from the website here: <a href="http://groupware.les.inf.puc-rio.br/har" class="uri">http://groupware.les.inf.puc-rio.br/har</a> (see the section on the Weight Lifting Exercise Dataset).</p>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>Data The training data for this project are available here:</p>
+<p><a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv</a></p>
+<p>The test data are available here:</p>
+<p><a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv</a></p>
+<p>The data for this project come from this source: <a href="http://groupware.les.inf.puc-rio.br/har" class="uri">http://groupware.les.inf.puc-rio.br/har</a>. If you use the document you create for this class for any purpose please cite them as they have been very generous in allowing their data to be used for this kind of assignment.</p>
+</div>
+<div id="data-importing-and-cleaning" class="section level2">
+<h2>Data Importing and Cleaning</h2>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 3.6.1</code></pre>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 3.6.1</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(caret)</code></pre>
+<pre><code>## Warning: package &#39;caret&#39; was built under R version 3.6.1</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre class="r"><code>library(e1071)
+library(randomForest)</code></pre>
+<pre><code>## Warning: package &#39;randomForest&#39; was built under R version 3.6.1</code></pre>
+<pre><code>## randomForest 4.6-14</code></pre>
+<pre><code>## Type rfNews() to see new features/changes/bug fixes.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;randomForest&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     margin</code></pre>
+<pre class="r"><code>library(tictoc)
+
+set.seed(60)
+# Download and unzip the data
+fileurl1 = &#39;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv&#39;
+fileurl2 = &#39;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv&#39;
+
+if (!file.exists(&#39;./PML/trainSample&#39;)){
+  download.file(fileurl1,&#39;./PML/trainSample.csv&#39;)
+  dateDownloaded1 &lt;- date()
+}
+
+if (!file.exists(&#39;./PML/testSample&#39;)){
+  download.file(fileurl2,&#39;./PML/testSample.csv&#39;)
+  dateDownloaded2 &lt;- date()
+}
+
+
+
+trainSample &lt;- read.csv(&#39;./PML/trainSample.csv&#39;, na.strings=c(&quot;NA&quot;, &quot;#DIV/0!&quot;, &quot;&quot;))
+testSample &lt;- read.csv(&#39;./PML/testSample.csv&#39;, na.strings=c(&quot;NA&quot;, &quot;#DIV/0!&quot;, &quot;&quot;))
+
+# Checking the dimensions of the data
+head(colnames(trainSample),10)</code></pre>
+<pre><code>##  [1] &quot;X&quot;                    &quot;user_name&quot;            &quot;raw_timestamp_part_1&quot;
+##  [4] &quot;raw_timestamp_part_2&quot; &quot;cvtd_timestamp&quot;       &quot;new_window&quot;          
+##  [7] &quot;num_window&quot;           &quot;roll_belt&quot;            &quot;pitch_belt&quot;          
+## [10] &quot;yaw_belt&quot;</code></pre>
+<pre class="r"><code>head(colnames(testSample), 10)</code></pre>
+<pre><code>##  [1] &quot;X&quot;                    &quot;user_name&quot;            &quot;raw_timestamp_part_1&quot;
+##  [4] &quot;raw_timestamp_part_2&quot; &quot;cvtd_timestamp&quot;       &quot;new_window&quot;          
+##  [7] &quot;num_window&quot;           &quot;roll_belt&quot;            &quot;pitch_belt&quot;          
+## [10] &quot;yaw_belt&quot;</code></pre>
+<pre class="r"><code>dim(trainSample)</code></pre>
+<pre><code>## [1] 19622   160</code></pre>
+<pre class="r"><code>dim(testSample)</code></pre>
+<pre><code>## [1]  20 160</code></pre>
+<pre class="r"><code>trainNULLS &lt;- sapply(trainSample, function(y) sum(length(which(is.na(y)))))
+testNULLS &lt;- sapply(testSample, function(y) sum(length(which(is.na(y)))))
+
+# There are many columns with all of the values being NAs, so deleting these would be wise
+# I took a threshold of below 40% of the samples can be NAs
+threshold_40_per &lt;- dim(trainSample)[1]*0.4
+
+trainNULLS &lt;- as.data.frame(trainNULLS)
+indexes &lt;- which(trainNULLS&lt;=threshold_40_per)
+
+cleanTrain &lt;- trainSample[, indexes]
+cleanTest &lt;- testSample[,indexes]
+
+# Next we need to take away all the variables that have
+# near-zero variance, one can do this with the function from caret
+# We only need to take care of the variance in the train sample
+# and we are to assume the testing sample corresponds to this
+nzv &lt;- nearZeroVar(cleanTrain)
+filteredTrain &lt;- na.omit(cleanTrain[,-nzv])
+filteredTest &lt;- na.omit(cleanTest[,-nzv])
+
+summary(filteredTrain)</code></pre>
+<pre><code>##        X            user_name    raw_timestamp_part_1 raw_timestamp_part_2
+##  Min.   :    1   adelmo  :3892   Min.   :1.322e+09    Min.   :   294      
+##  1st Qu.: 4906   carlitos:3112   1st Qu.:1.323e+09    1st Qu.:252912      
+##  Median : 9812   charles :3536   Median :1.323e+09    Median :496380      
+##  Mean   : 9812   eurico  :3070   Mean   :1.323e+09    Mean   :500656      
+##  3rd Qu.:14717   jeremy  :3402   3rd Qu.:1.323e+09    3rd Qu.:751891      
+##  Max.   :19622   pedro   :2610   Max.   :1.323e+09    Max.   :998801      
+##                                                                           
+##           cvtd_timestamp    num_window      roll_belt     
+##  28/11/2011 14:14: 1498   Min.   :  1.0   Min.   :-28.90  
+##  05/12/2011 11:24: 1497   1st Qu.:222.0   1st Qu.:  1.10  
+##  30/11/2011 17:11: 1440   Median :424.0   Median :113.00  
+##  05/12/2011 11:25: 1425   Mean   :430.6   Mean   : 64.41  
+##  02/12/2011 14:57: 1380   3rd Qu.:644.0   3rd Qu.:123.00  
+##  02/12/2011 13:34: 1375   Max.   :864.0   Max.   :162.00  
+##  (Other)         :11007                                   
+##    pitch_belt          yaw_belt       total_accel_belt  gyros_belt_x      
+##  Min.   :-55.8000   Min.   :-180.00   Min.   : 0.00    Min.   :-1.040000  
+##  1st Qu.:  1.7600   1st Qu.: -88.30   1st Qu.: 3.00    1st Qu.:-0.030000  
+##  Median :  5.2800   Median : -13.00   Median :17.00    Median : 0.030000  
+##  Mean   :  0.3053   Mean   : -11.21   Mean   :11.31    Mean   :-0.005592  
+##  3rd Qu.: 14.9000   3rd Qu.:  12.90   3rd Qu.:18.00    3rd Qu.: 0.110000  
+##  Max.   : 60.3000   Max.   : 179.00   Max.   :29.00    Max.   : 2.220000  
+##                                                                           
+##   gyros_belt_y       gyros_belt_z      accel_belt_x       accel_belt_y   
+##  Min.   :-0.64000   Min.   :-1.4600   Min.   :-120.000   Min.   :-69.00  
+##  1st Qu.: 0.00000   1st Qu.:-0.2000   1st Qu.: -21.000   1st Qu.:  3.00  
+##  Median : 0.02000   Median :-0.1000   Median : -15.000   Median : 35.00  
+##  Mean   : 0.03959   Mean   :-0.1305   Mean   :  -5.595   Mean   : 30.15  
+##  3rd Qu.: 0.11000   3rd Qu.:-0.0200   3rd Qu.:  -5.000   3rd Qu.: 61.00  
+##  Max.   : 0.64000   Max.   : 1.6200   Max.   :  85.000   Max.   :164.00  
+##                                                                          
+##   accel_belt_z     magnet_belt_x   magnet_belt_y   magnet_belt_z   
+##  Min.   :-275.00   Min.   :-52.0   Min.   :354.0   Min.   :-623.0  
+##  1st Qu.:-162.00   1st Qu.:  9.0   1st Qu.:581.0   1st Qu.:-375.0  
+##  Median :-152.00   Median : 35.0   Median :601.0   Median :-320.0  
+##  Mean   : -72.59   Mean   : 55.6   Mean   :593.7   Mean   :-345.5  
+##  3rd Qu.:  27.00   3rd Qu.: 59.0   3rd Qu.:610.0   3rd Qu.:-306.0  
+##  Max.   : 105.00   Max.   :485.0   Max.   :673.0   Max.   : 293.0  
+##                                                                    
+##     roll_arm         pitch_arm          yaw_arm          total_accel_arm
+##  Min.   :-180.00   Min.   :-88.800   Min.   :-180.0000   Min.   : 1.00  
+##  1st Qu.: -31.77   1st Qu.:-25.900   1st Qu.: -43.1000   1st Qu.:17.00  
+##  Median :   0.00   Median :  0.000   Median :   0.0000   Median :27.00  
+##  Mean   :  17.83   Mean   : -4.612   Mean   :  -0.6188   Mean   :25.51  
+##  3rd Qu.:  77.30   3rd Qu.: 11.200   3rd Qu.:  45.8750   3rd Qu.:33.00  
+##  Max.   : 180.00   Max.   : 88.500   Max.   : 180.0000   Max.   :66.00  
+##                                                                         
+##   gyros_arm_x        gyros_arm_y       gyros_arm_z       accel_arm_x     
+##  Min.   :-6.37000   Min.   :-3.4400   Min.   :-2.3300   Min.   :-404.00  
+##  1st Qu.:-1.33000   1st Qu.:-0.8000   1st Qu.:-0.0700   1st Qu.:-242.00  
+##  Median : 0.08000   Median :-0.2400   Median : 0.2300   Median : -44.00  
+##  Mean   : 0.04277   Mean   :-0.2571   Mean   : 0.2695   Mean   : -60.24  
+##  3rd Qu.: 1.57000   3rd Qu.: 0.1400   3rd Qu.: 0.7200   3rd Qu.:  84.00  
+##  Max.   : 4.87000   Max.   : 2.8400   Max.   : 3.0200   Max.   : 437.00  
+##                                                                          
+##   accel_arm_y      accel_arm_z       magnet_arm_x     magnet_arm_y   
+##  Min.   :-318.0   Min.   :-636.00   Min.   :-584.0   Min.   :-392.0  
+##  1st Qu.: -54.0   1st Qu.:-143.00   1st Qu.:-300.0   1st Qu.:  -9.0  
+##  Median :  14.0   Median : -47.00   Median : 289.0   Median : 202.0  
+##  Mean   :  32.6   Mean   : -71.25   Mean   : 191.7   Mean   : 156.6  
+##  3rd Qu.: 139.0   3rd Qu.:  23.00   3rd Qu.: 637.0   3rd Qu.: 323.0  
+##  Max.   : 308.0   Max.   : 292.00   Max.   : 782.0   Max.   : 583.0  
+##                                                                      
+##   magnet_arm_z    roll_dumbbell     pitch_dumbbell     yaw_dumbbell     
+##  Min.   :-597.0   Min.   :-153.71   Min.   :-149.59   Min.   :-150.871  
+##  1st Qu.: 131.2   1st Qu.: -18.49   1st Qu.: -40.89   1st Qu.: -77.644  
+##  Median : 444.0   Median :  48.17   Median : -20.96   Median :  -3.324  
+##  Mean   : 306.5   Mean   :  23.84   Mean   : -10.78   Mean   :   1.674  
+##  3rd Qu.: 545.0   3rd Qu.:  67.61   3rd Qu.:  17.50   3rd Qu.:  79.643  
+##  Max.   : 694.0   Max.   : 153.55   Max.   : 149.40   Max.   : 154.952  
+##                                                                         
+##  total_accel_dumbbell gyros_dumbbell_x    gyros_dumbbell_y  
+##  Min.   : 0.00        Min.   :-204.0000   Min.   :-2.10000  
+##  1st Qu.: 4.00        1st Qu.:  -0.0300   1st Qu.:-0.14000  
+##  Median :10.00        Median :   0.1300   Median : 0.03000  
+##  Mean   :13.72        Mean   :   0.1611   Mean   : 0.04606  
+##  3rd Qu.:19.00        3rd Qu.:   0.3500   3rd Qu.: 0.21000  
+##  Max.   :58.00        Max.   :   2.2200   Max.   :52.00000  
+##                                                             
+##  gyros_dumbbell_z  accel_dumbbell_x  accel_dumbbell_y  accel_dumbbell_z 
+##  Min.   : -2.380   Min.   :-419.00   Min.   :-189.00   Min.   :-334.00  
+##  1st Qu.: -0.310   1st Qu.: -50.00   1st Qu.:  -8.00   1st Qu.:-142.00  
+##  Median : -0.130   Median :  -8.00   Median :  41.50   Median :  -1.00  
+##  Mean   : -0.129   Mean   : -28.62   Mean   :  52.63   Mean   : -38.32  
+##  3rd Qu.:  0.030   3rd Qu.:  11.00   3rd Qu.: 111.00   3rd Qu.:  38.00  
+##  Max.   :317.000   Max.   : 235.00   Max.   : 315.00   Max.   : 318.00  
+##                                                                         
+##  magnet_dumbbell_x magnet_dumbbell_y magnet_dumbbell_z  roll_forearm      
+##  Min.   :-643.0    Min.   :-3600     Min.   :-262.00   Min.   :-180.0000  
+##  1st Qu.:-535.0    1st Qu.:  231     1st Qu.: -45.00   1st Qu.:  -0.7375  
+##  Median :-479.0    Median :  311     Median :  13.00   Median :  21.7000  
+##  Mean   :-328.5    Mean   :  221     Mean   :  46.05   Mean   :  33.8265  
+##  3rd Qu.:-304.0    3rd Qu.:  390     3rd Qu.:  95.00   3rd Qu.: 140.0000  
+##  Max.   : 592.0    Max.   :  633     Max.   : 452.00   Max.   : 180.0000  
+##                                                                           
+##  pitch_forearm     yaw_forearm      total_accel_forearm gyros_forearm_x  
+##  Min.   :-72.50   Min.   :-180.00   Min.   :  0.00      Min.   :-22.000  
+##  1st Qu.:  0.00   1st Qu.: -68.60   1st Qu.: 29.00      1st Qu.: -0.220  
+##  Median :  9.24   Median :   0.00   Median : 36.00      Median :  0.050  
+##  Mean   : 10.71   Mean   :  19.21   Mean   : 34.72      Mean   :  0.158  
+##  3rd Qu.: 28.40   3rd Qu.: 110.00   3rd Qu.: 41.00      3rd Qu.:  0.560  
+##  Max.   : 89.80   Max.   : 180.00   Max.   :108.00      Max.   :  3.970  
+##                                                                          
+##  gyros_forearm_y     gyros_forearm_z    accel_forearm_x   accel_forearm_y 
+##  Min.   : -7.02000   Min.   : -8.0900   Min.   :-498.00   Min.   :-632.0  
+##  1st Qu.: -1.46000   1st Qu.: -0.1800   1st Qu.:-178.00   1st Qu.:  57.0  
+##  Median :  0.03000   Median :  0.0800   Median : -57.00   Median : 201.0  
+##  Mean   :  0.07517   Mean   :  0.1512   Mean   : -61.65   Mean   : 163.7  
+##  3rd Qu.:  1.62000   3rd Qu.:  0.4900   3rd Qu.:  76.00   3rd Qu.: 312.0  
+##  Max.   :311.00000   Max.   :231.0000   Max.   : 477.00   Max.   : 923.0  
+##                                                                           
+##  accel_forearm_z   magnet_forearm_x  magnet_forearm_y magnet_forearm_z
+##  Min.   :-446.00   Min.   :-1280.0   Min.   :-896.0   Min.   :-973.0  
+##  1st Qu.:-182.00   1st Qu.: -616.0   1st Qu.:   2.0   1st Qu.: 191.0  
+##  Median : -39.00   Median : -378.0   Median : 591.0   Median : 511.0  
+##  Mean   : -55.29   Mean   : -312.6   Mean   : 380.1   Mean   : 393.6  
+##  3rd Qu.:  26.00   3rd Qu.:  -73.0   3rd Qu.: 737.0   3rd Qu.: 653.0  
+##  Max.   : 291.00   Max.   :  672.0   Max.   :1480.0   Max.   :1090.0  
+##                                                                       
+##  classe  
+##  A:5580  
+##  B:3797  
+##  C:3422  
+##  D:3216  
+##  E:3607  
+##          
+## </code></pre>
+<pre class="r"><code># Next, normalizing and centering the variables would
+# be good, since there seems to be large differences between the minimums
+# and maximums of the variables
+# The variable index is excluded since it&#39;s only a sequence along row numbers
+
+preProcTrain &lt;- preProcess(filteredTrain[,6:58], method=c(&quot;center&quot;, &quot;scale&quot;))
+normTrain &lt;- predict(preProcTrain, filteredTrain[,6:58])
+
+preProcTest &lt;- preProcess(filteredTest[,6:58], method=c(&quot;center&quot;, &quot;scale&quot;))
+normTest &lt;- predict(preProcTest, filteredTest[,6:58])
+
+
+
+# See the correlation between the numeric predictors
+highlyCor &lt;- findCorrelation(cor(normTrain), cutoff=.75, verbose=FALSE)
+# And we want to remove these to not clutter the analysis
+normTrain &lt;- normTrain[,-highlyCor]
+normTest &lt;- normTest[, -highlyCor]
+
+# We add back the classe (outcome) predictor
+normTrain$classe &lt;- as.factor(filteredTrain$classe)
+normTest$classe &lt;- as.factor(filteredTest$problem_id)
+
+
+
+# Create a validation test partition / Data Slicing
+CV &lt;- createDataPartition(normTrain$classe, p=0.70, list=FALSE)
+
+normTrainT &lt;- normTrain[CV,]
+normValid &lt;- normTrain[-CV,]</code></pre>
+</div>
+<div id="applying-predictors-random-forest" class="section level2">
+<h2>Applying predictors:: Random Forest</h2>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction    A    B    C    D    E
+##          A 1674    1    0    0    0
+##          B    0 1138    2    0    0
+##          C    0    0 1022    3    0
+##          D    0    0    2  961    2
+##          E    0    0    0    0 1080
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.9983          
+##                  95% CI : (0.9969, 0.9992)
+##     No Information Rate : 0.2845          
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.9979          
+##                                           
+##  Mcnemar&#39;s Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: A Class: B Class: C Class: D Class: E
+## Sensitivity            1.0000   0.9991   0.9961   0.9969   0.9982
+## Specificity            0.9998   0.9996   0.9994   0.9992   1.0000
+## Pos Pred Value         0.9994   0.9982   0.9971   0.9959   1.0000
+## Neg Pred Value         1.0000   0.9998   0.9992   0.9994   0.9996
+## Prevalence             0.2845   0.1935   0.1743   0.1638   0.1839
+## Detection Rate         0.2845   0.1934   0.1737   0.1633   0.1835
+## Detection Prevalence   0.2846   0.1937   0.1742   0.1640   0.1835
+## Balanced Accuracy      0.9999   0.9994   0.9977   0.9980   0.9991</code></pre>
+<pre><code>## Random Forest: 32.31 sec elapsed</code></pre>
+<pre><code>##                         Overall
+## num_window           1365.35916
+## yaw_belt              914.78109
+## gyros_belt_x          152.55938
+## gyros_belt_y          166.13421
+## gyros_belt_z          384.68976
+## magnet_belt_x         290.25164
+## magnet_belt_y         628.95508
+## roll_arm              330.01755
+## pitch_arm             185.88662
+## yaw_arm               221.29594
+## total_accel_arm       121.91373
+## gyros_arm_y           146.64553
+## gyros_arm_z            73.27015
+## magnet_arm_x          251.98375
+## magnet_arm_z          172.05700
+## roll_dumbbell         505.25708
+## pitch_dumbbell        278.75876
+## yaw_dumbbell          340.29043
+## total_accel_dumbbell  368.57957
+## gyros_dumbbell_y      318.82899
+## magnet_dumbbell_z     679.60300
+## roll_forearm          506.20003
+## pitch_forearm         684.40706
+## yaw_forearm           183.19363
+## total_accel_forearm   115.92521
+## gyros_forearm_x        92.34042
+## gyros_forearm_z        92.22296
+## accel_forearm_x       305.40845
+## accel_forearm_z       284.42790
+## magnet_forearm_x      196.63713
+## magnet_forearm_y      221.83357
+## magnet_forearm_z      280.28486</code></pre>
+<p><img src="PML_Predict_files/figure-html/predictors%20RF-1.png" width="672" /></p>
+</div>
+<div id="applying-predictorssvm" class="section level2">
+<h2>Applying predictors::SVM</h2>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction    A    B    C    D    E
+##          A 1654   67    4    4    0
+##          B    0 1035   41    0    7
+##          C   19   35  961   84   14
+##          D    0    0   17  872   25
+##          E    1    2    3    4 1036
+## 
+## Overall Statistics
+##                                           
+##                Accuracy : 0.9444          
+##                  95% CI : (0.9383, 0.9502)
+##     No Information Rate : 0.2845          
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.9296          
+##                                           
+##  Mcnemar&#39;s Test P-Value : NA              
+## 
+## Statistics by Class:
+## 
+##                      Class: A Class: B Class: C Class: D Class: E
+## Sensitivity            0.9881   0.9087   0.9366   0.9046   0.9575
+## Specificity            0.9822   0.9899   0.9687   0.9915   0.9979
+## Pos Pred Value         0.9566   0.9557   0.8634   0.9540   0.9904
+## Neg Pred Value         0.9952   0.9783   0.9864   0.9815   0.9905
+## Prevalence             0.2845   0.1935   0.1743   0.1638   0.1839
+## Detection Rate         0.2811   0.1759   0.1633   0.1482   0.1760
+## Detection Prevalence   0.2938   0.1840   0.1891   0.1553   0.1777
+## Balanced Accuracy      0.9851   0.9493   0.9527   0.9480   0.9777</code></pre>
+<pre><code>## SVM: 50.92 sec elapsed</code></pre>
+<p><img src="PML_Predict_files/figure-html/predictors%20SVM-1.png" width="672" /></p>
+<p>We can see that Random Forest creates a very accurate prediction of the output class with 0.998 with an out of sample error 0.0003960396. Nevertheless, both algorithms perform very well in predicting the outcome at 0.939 and above (SVM is 0.9397) The running time of the algorithms is much worse with SVM taking 43 seconds, and the Random Forest algorithm taking 24 seconds Last thing is to apply the model to produce the results of the test data with the test data When I applied the RF model to the test data set, the actual results were much worse at the testing dataset</p>
+</div>
+<div id="results" class="section level2">
+<h2>RESULTS</h2>
+<pre><code>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 
+##  B  A  A  A  D  E  D  B  A  A  B  C  D  A  E  D  E  B  B  D 
+## Levels: A B C D E</code></pre>
+<pre><code>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 
+##  B  A  B  A  A  E  D  D  A  A  B  C  B  A  E  E  A  B  B  B 
+## Levels: A B C D E</code></pre>
+<p>The validation test got good results But if the algorithm performs better on the test set (that we know the results for) It is better to use the SVM model</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
