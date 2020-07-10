@@ -1,0 +1,188 @@
+---
+title: "Leaflet_Rest"
+author: "Mihail Petkov"
+date: "7/9/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Background
+
+Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. More information is available from the website here: http://groupware.les.inf.puc-rio.br/har (see the section on the Weight Lifting Exercise Dataset).
+
+
+## Data
+
+Data
+The training data for this project are available here:
+
+<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv</a>
+
+The test data are available here:
+
+<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv</a>
+
+The data for this project come from this source: http://groupware.les.inf.puc-rio.br/har. If you use the document you create for this class for any purpose please cite them as they have been very generous in allowing their data to be used for this kind of assignment.
+
+## Data Importing and Cleaning
+
+```{r Loading Libraries, Reading Data, Cleaning and Preprocessing, echo=TRUE}
+library(caret)
+library(e1071)
+library(ggplot2)
+library(dplyr)
+library(randomForest)
+library(tictoc)
+
+set.seed(60)
+# Download and unzip the data
+fileurl1 = 'https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv'
+fileurl2 = 'https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv'
+
+if (!file.exists('./PML/trainSample')){
+  download.file(fileurl1,'./PML/trainSample.csv')
+  dateDownloaded1 <- date()
+}
+
+if (!file.exists('./PML/testSample')){
+  download.file(fileurl2,'./PML/testSample.csv')
+  dateDownloaded2 <- date()
+}
+
+
+
+trainSample <- read.csv('./PML/trainSample.csv', na.strings=c("NA", "#DIV/0!", ""))
+testSample <- read.csv('./PML/testSample.csv', na.strings=c("NA", "#DIV/0!", ""))
+
+# Checking the dimensions of the data
+colnames(trainSample)
+colnames(testSample)
+
+dim(trainSample)
+dim(testSample)
+
+
+trainNULLS <- sapply(trainSample, function(y) sum(length(which(is.na(y)))))
+testNULLS <- sapply(testSample, function(y) sum(length(which(is.na(y)))))
+
+# There are many columns with all of the values being NAs, so deleting these would be wise
+# I took a threshold of below 40% of the samples can be NAs
+threshold_40_per <- dim(trainSample)[1]*0.4
+
+trainNULLS <- as.data.frame(trainNULLS)
+indexes <- which(trainNULLS<=threshold_40_per)
+
+cleanTrain <- trainSample[, indexes]
+cleanTest <- testSample[,indexes]
+
+# Next we need to take away all the variables that have
+# near-zero variance, one can do this with the function from caret
+# We only need to take care of the variance in the train sample
+# and we are to assume the testing sample corresponds to this
+nzv <- nearZeroVar(cleanTrain)
+filteredTrain <- na.omit(cleanTrain[,-nzv])
+filteredTest <- na.omit(cleanTest[,-nzv])
+filteredTrain$classe <- as.factor(cleanTest$classe)
+filteredTest$classe <- as.factor(cleanTest$classe)
+
+summary(filteredTrain)
+# Next, normalizing and centering the variables would
+# be good, since there seems to be large differences between the minimums
+# and maximums of the variables
+# The variable index is excluded since it's only a sequence along row numbers
+
+preProcTrain <- preProcess(filteredTrain[,6:58], method=c("center", "scale"))
+normTrain <- predict(preProcTrain, filteredTrain[,6:58])
+
+preProcTest <- preProcess(filteredTest[,6:58], method=c("center", "scale"))
+normTest <- predict(preProcTest, filteredTest[,6:58])
+
+
+
+# See the correlation between the numeric predictors
+highlyCor <- findCorrelation(cor(normTrain), cutoff=.75, verbose=FALSE)
+# And we want to remove these to not clutter the analysis
+normTrain <- normTrain[,-highlyCor]
+normTest <- normTest[, -highlyCor]
+
+# We add back the classe (outcome) predictor
+normTrain$classe <- as.factor(filteredTrain$classe)
+normTest$classe <- as.factor(filteredTest$problem_id)
+
+
+
+# Create a validation test partition / Data Slicing
+CV <- createDataPartition(normTrain$classe, p=0.70, list=FALSE)
+
+normTrainT <- normTrain[CV,]
+normValid <- normTrain[-CV,]
+
+```
+
+
+## Applying predictors:: Random Forest
+```{r predictors RF, echo=FALSE}
+
+# Measuring execution time as well with tictoc
+
+tic("Random Forest")
+RandomF <- randomForest(classe ~., data=normTrainT, method="cv")
+predictRF <- predict(RandomF, normValid)
+CF_RF <- confusionMatrix(predictRF, normValid$classe)
+CF_RF
+toc()
+
+# Which variables are important, to plot
+varImp(RandomF)
+
+normValid$RF_Right <- normValid$classe == predictRF
+
+# Plotting some of the most important variables, as denoted by the function
+qplot(num_window, magnet_dumbbell_z, col=RF_Right, data=normValid, xlab="Number of Windows", ylab="Magnetic Bell Z")
+
+# Seeing on which variables the tree is being split
+getTree(RandomF, k=3, labelVar=TRUE)
+````
+
+## Applying predictors::SVM
+
+```{r predictors SVM, echo=FALSE}
+tic("SVM")
+SVM <- svm(classe ~., data=normTrainT, type="C-classification")
+predictSVM <- predict(SVM, normValid, type="class")
+CF_SVM <- confusionMatrix(predictSVM, normValid$classe)
+CF_SVM
+toc()
+# Which variables are important, to plot
+
+
+normValid$SVM_Right <- normValid$classe == predictSVM
+qplot(num_window, magnet_dumbbell_z, col=SVM_Right, data=normValid, xlab="Number of Windows", ylab="Magnetic Bell Z")
+
+```
+
+# We can see that Random Forest creates a very accurate prediction of the output class with 0.998 with an out of sample error 0.0003960396. 
+# Nevertheless, both algorithms perform very well in predicting the outcome at 0.939 and above (SVM is 0.9397) 
+# The running time of the algorithms is much worse with SVM taking 43 seconds, and the Random Forest algorithm taking 24 seconds
+
+# Last thing is to apply the model to produce the results of the test data with the test data
+# When I applied the RF model to the test data set, the actual results were much worse at the testing dataset
+
+## RESULTS
+
+```{r predictors Test Results, echo=FALSE}
+
+testResultsRF <- predict(RandomF, normTest[,-33])
+testResultsSVM <- predict(SVM, normTest[,-33])
+
+testResultsRF
+testResultsSVM
+```
+
+# The validation test got good results
+# But if the algorithm performs better on the test set (that we know the results for)
+# It is better to use the SVM model
